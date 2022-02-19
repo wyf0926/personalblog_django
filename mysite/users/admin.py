@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 # Register your models here.
-from .models import UserProfile
+from .models import UserProfile, EmailVerification
 
 from django.contrib.auth.admin import UserAdmin
 
@@ -21,3 +21,10 @@ class UserProfileAdmin(UserAdmin):
 
 # register User mode
 admin.site.register(User, UserProfileAdmin)
+
+
+@admin.register(EmailVerification)
+class Admin(admin.ModelAdmin):
+    """Admin View for email verification code"""
+
+    list_display = ('code',)
