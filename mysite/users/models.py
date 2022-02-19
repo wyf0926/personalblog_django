@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+
+
 # Create your models here.
 class UserProfile(models.Model):
-
     USER_GENDER_TYPE = (
         ("male", "Male"),
         ("female", "Female"),
@@ -14,7 +15,8 @@ class UserProfile(models.Model):
     birthday = models.DateField("birthday", null=True, blank=True)
     gender = models.CharField("gender", max_length=20, choices=USER_GENDER_TYPE, default="male")
     address = models.CharField("address", max_length=100, blank=True, default="")
-    image = models.ImageField(upload_to="image/%Y/%m", default="image/default.png", max_length=100, verbose_name="Avatar")
+    image = models.ImageField(upload_to="image/%Y/%m", default="image/default.png", max_length=100,
+                              verbose_name="Avatar")
 
     class Meta:
         verbose_name = "User Info"
