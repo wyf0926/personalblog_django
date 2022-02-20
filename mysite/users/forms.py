@@ -6,7 +6,7 @@ class LoginForm(forms.Form):
     username = forms.CharField(label='Username', max_length=32, widget=forms.TextInput(attrs={
         'class': 'input', 'placeholder': 'Username or email'
     }))
-    password = forms.CharField(label='Password', max_length=6, widget=forms.PasswordInput(attrs={
+    password = forms.CharField(label='Password', min_length=6, widget=forms.PasswordInput(attrs={
         'class': 'input', 'placeholder': 'Password'
     }))
 
@@ -22,10 +22,10 @@ class RegistrationForm(forms.ModelForm):
     email = forms.EmailField(label='Email', max_length=32, widget=forms.EmailInput(attrs={
         'class': 'input', 'placeholder': 'Email'
     }))
-    password = forms.CharField(label='Password', max_length=6, widget=forms.PasswordInput(attrs={
+    password = forms.CharField(label='Password', min_length=6, widget=forms.PasswordInput(attrs={
         'class': 'input', 'placeholder': 'Password'
     }))
-    password_again = forms.CharField(label='Password', max_length=6, widget=forms.PasswordInput(attrs={
+    password_again = forms.CharField(label='Password', min_length=6, widget=forms.PasswordInput(attrs={
         'class': 'input', 'placeholder': 'Enter password again'
     }))
 

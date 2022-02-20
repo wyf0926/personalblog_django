@@ -131,3 +131,11 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_HOST_USER = 'yanzuece@foxmail.com'
+EMAIL_HOST_PASSWORD = 'Wyf0209@'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

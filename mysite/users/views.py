@@ -4,10 +4,13 @@ from django.contrib.auth import authenticate, login
 from .forms import LoginForm, RegistrationForm
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
+from .models import EmailVerification
+from utils.email_send import send_register_email
 
 
 class MyBackend(ModelBackend):
     """email login test"""
+
     def authenticate(self, request, username=None, password=None, **kwargs):
         try:
             user = User.objects.get(Q(username=username) | Q(email=username))
@@ -15,6 +18,20 @@ class MyBackend(ModelBackend):
                 return user
         except Exception as e:
             return None
+
+
+def activation_user(request, code):
+    """Compare verification codes and update user status"""
+    all_records = EmailVerification.objects.filter(code=code)
+    if all_records:
+        for r in all_records:
+            email = r.email
+            user = User.objects.get(email=email)
+            user.is_staff = True
+            user.save()
+    else:
+        return HttpResponse('Wrong link!')
+    return redirect('users:login')
 
 
 # Create your views here.
@@ -38,7 +55,7 @@ def login_view(request):
     return render(request, 'users/login.html', context)
 
 
-def reigister(request):
+def register(request):
     """Registration view"""
     if request.method != 'POST':
         form = RegistrationForm()
@@ -49,6 +66,7 @@ def reigister(request):
             new_user.set_password(form.cleaned_data.get('password'))
             new_user.username = form.cleaned_data.get('email')
             new_user.save()
+            send_register_email(form.cleaned_data.get('email'), 'register')
             return HttpResponse('Success!')
     context = {'form': form}
     return render(request, 'users/register.html', context)
