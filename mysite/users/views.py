@@ -20,9 +20,9 @@ class MyBackend(ModelBackend):
             return None
 
 
-def activation_user(request, code):
+def activation_user(request, active_code):
     """Compare verification codes and update user status"""
-    all_records = EmailVerification.objects.filter(code=code)
+    all_records = EmailVerification.objects.filter(code=active_code)
     if all_records:
         for r in all_records:
             email = r.email

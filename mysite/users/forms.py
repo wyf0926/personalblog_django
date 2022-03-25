@@ -47,3 +47,11 @@ class RegistrationForm(forms.ModelForm):
         if password != password_again:
             raise forms.ValidationError('Inconsistent passwords!')
         return password_again
+
+class ForgetPwdForm(forms.Form):
+    email = forms.EmailField(label='Please enter email address', min_length=4, widget=forms.EmailInput(
+        attrs={
+            'class': 'input',
+            'placeholder': 'Username/Email'
+        }
+    ))
